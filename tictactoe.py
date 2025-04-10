@@ -1,8 +1,3 @@
-#Tic-Tac-Toe using Mini-Max Algorithm
-#Vineet Joshi
-#GEU,Dehradun
-"""-----------------------"""
-
 #This function is used to draw the board's current state every time the user turn arrives. 
 def ConstBoard(board):
     print("Current State Of Board : \n\n");
@@ -123,7 +118,6 @@ def main():
          ConstBoard(board);
          print("X Loose!!! O Wins !!!!")
        
-#---------------#
 main()
-#---------------#
+
 
