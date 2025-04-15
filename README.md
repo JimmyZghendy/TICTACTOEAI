@@ -1,6 +1,9 @@
 Project Info407: A Tic-Tac-Toe is a 2 player game, who take turns marking the spaces in a 3x3 grid. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. 
 
-
+To do to complete this project:
+- Apply with graphical interface.
+- Apply algorithm alphaBeta with choice 1 for MinMax and alphaBeta.
+  
 Tic-Tac-Toe.py is the python implementation of the game. 
 There are two modes to play:
 <ul>
