@@ -1,8 +1,23 @@
+<<<<<<< HEAD
 # 🎮 Tic-Tac-Toe with AI 🎲
 
 ## 📝 Overview
 
 This is a fully-featured Tic-Tac-Toe game with a graphical user interface built using Python and Tkinter. The game includes two AI implementation options:
+=======
+Project Info407: A Tic-Tac-Toe is a 2 player game, who take turns marking the spaces in a 3x3 grid. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game. 
+
+To do to complete this project:
+- Apply with graphical interface.
+- Apply algorithm alphaBeta with choice 1 for MinMax and alphaBeta.
+  
+Tic-Tac-Toe.py is the python implementation of the game. 
+There are two modes to play:
+<ul>
+ <li>Single Player (Against Computer)</li>
+ <li>2 Players</li>
+</ul>
+>>>>>>> 53092c78770fbd08d94726de0d3e246090dc26df
 
 1. **MiniMax.py** - Classic minimax algorithm implementation
 2. **AlphaBeta.py** - Enhanced minimax with alpha-beta pruning for improved performance
