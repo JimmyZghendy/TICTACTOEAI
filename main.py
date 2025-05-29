@@ -1,22 +1,33 @@
 import sys
 import os
+import argparse
 import time
 import tkinter as tk
 from tkinter import messagebox
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Add the project root to the Python path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from utils.ui import create_menu, create_mode_selection, create_game_board, create_status_bar, create_control_buttons, show_about
 from utils.game_engine import GameLogic
-from ai_engine import AIEngine
+
+def import_ai_engine(algorithm):
+    if algorithm == "minimax":
+        from ai_engine.minimax import AIEngine
+    else:  # alpha-beta
+        from ai_engine.alphabeta import AIEngine
+    return AIEngine
 
 class TicTacToeGUI:
-    def __init__(self, root):
+    def __init__(self, root, algorithm="minimax"):
         self.root = root
-        self.root.title("Tic-Tac-Toe Game")
+        self.root.title(f"Tic-Tac-Toe Game ({algorithm})")
         self.root.resizable(False, False)
 
         # Initialize game components
-        self.game_engine  = GameLogic()
-        self.ai_engine = AIEngine(self.game_engine )
+        self.game_engine = GameLogic()
+        AIEngine = import_ai_engine(algorithm)
+        self.ai_engine = AIEngine(self.game_engine)
 
         self.buttons = []
         self.game_mode = 1  # Default: 1 for single player, 2 for multiplayer
@@ -38,7 +49,7 @@ class TicTacToeGUI:
         self.reset_game()
 
     def reset_game(self):
-        self.game_engine .reset_board()
+        self.game_engine.reset_board()
 
         # Reset AI timing data
         self.ai_move_times = []
@@ -63,7 +74,7 @@ class TicTacToeGUI:
             self.status_label.config(text="Player X's turn")
 
     def on_button_click(self, index):
-        if not self.game_engine .is_valid_move(index):
+        if not self.game_engine.is_valid_move(index):
             return
 
         if self.game_mode == 1:  # Single player mode
@@ -86,7 +97,7 @@ class TicTacToeGUI:
                     self.status_label.config(text="Player X's turn")
 
     def make_move(self, index, player):
-        if self.game_engine .make_move(index, player):
+        if self.game_engine.make_move(index, player):
             if player == -1:  # X
                 self.buttons[index].config(text="X", disabledforeground="blue")
             else:  # O
@@ -94,7 +105,7 @@ class TicTacToeGUI:
             self.buttons[index].config(state=tk.DISABLED)
 
     def computer_move(self):
-        if self.game_engine .game_over:
+        if self.game_engine.game_over:
             return
 
         start_time = time.time()
@@ -114,7 +125,7 @@ class TicTacToeGUI:
 
     def check_game_end(self):
         """Check if the game has ended and update UI accordingly"""
-        result = self.game_engine .check_game_end()
+        result = self.game_engine.check_game_end()
 
         if result['status'] == 'win':
             winner = "O" if result['winner'] == 1 else "X"
@@ -144,7 +155,7 @@ class TicTacToeGUI:
             print(f"Average time per move: {average_time:.4f} seconds\n")
 
     def highlight_winning_combination(self):
-        winning_combo = self.game_engine .get_winning_combination()
+        winning_combo = self.game_engine.get_winning_combination()
         if winning_combo:
             for idx in winning_combo:
                 self.buttons[idx].config(bg="light green")
@@ -152,7 +163,27 @@ class TicTacToeGUI:
     def show_about(self):
         show_about()
 
-if __name__ == "__main__":
+def main():
+    parser = argparse.ArgumentParser(description='Tic-Tac-Toe Game with AI')
+    
+    # Create mutually exclusive group for algorithm selection
+    algo_group = parser.add_mutually_exclusive_group()
+    algo_group.add_argument('--minimax', action='store_true', 
+                           help='Use minimax algorithm (default)')
+    algo_group.add_argument('--alphabeta', action='store_true', 
+                           help='Use alpha-beta pruning algorithm')
+    
+    args = parser.parse_args()
+    
+    # Determine which algorithm to use
+    if args.alphabeta:
+        algorithm = 'alphabeta'
+    else:
+        algorithm = 'minimax'  # Default to minimax
+    
     root = tk.Tk()
-    game = TicTacToeGUI(root)
+    game = TicTacToeGUI(root, algorithm)
     root.mainloop()
+
+if __name__ == "__main__":
+    main() 
