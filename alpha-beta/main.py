@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import messagebox
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.ui import create_menu, create_mode_selection, create_game_board, create_status_bar, create_control_buttons, show_about
-from utils.game import GameLogic
+from utils.game_engine import GameLogic
 from ai_engine import AIEngine
 
 class TicTacToeGUI:
