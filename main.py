@@ -5,7 +5,6 @@ import time
 import tkinter as tk
 from tkinter import messagebox
 
-# Add the project root to the Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from utils.ui import create_menu, create_mode_selection, create_game_board, create_status_bar, create_control_buttons, show_about
@@ -14,7 +13,7 @@ from utils.game_engine import GameLogic
 def import_ai_engine(algorithm):
     if algorithm == "minimax":
         from ai_engine.minimax import AIEngine
-    else:  # alpha-beta
+    else:
         from ai_engine.alphabeta import AIEngine
     return AIEngine
 
@@ -165,25 +164,23 @@ class TicTacToeGUI:
 
 def main():
     parser = argparse.ArgumentParser(description='Tic-Tac-Toe Game with AI')
-    
-    # Create mutually exclusive group for algorithm selection
+
     algo_group = parser.add_mutually_exclusive_group()
-    algo_group.add_argument('--minimax', action='store_true', 
+    algo_group.add_argument('--minimax', action='store_true',
                            help='Use minimax algorithm (default)')
-    algo_group.add_argument('--alphabeta', action='store_true', 
+    algo_group.add_argument('--alphabeta', action='store_true',
                            help='Use alpha-beta pruning algorithm')
-    
+
     args = parser.parse_args()
-    
-    # Determine which algorithm to use
+
     if args.alphabeta:
         algorithm = 'alphabeta'
     else:
-        algorithm = 'minimax'  # Default to minimax
-    
+        algorithm = 'minimax'
+
     root = tk.Tk()
     game = TicTacToeGUI(root, algorithm)
     root.mainloop()
 
 if __name__ == "__main__":
-    main() 
+    main()
