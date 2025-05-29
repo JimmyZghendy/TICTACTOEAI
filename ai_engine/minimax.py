@@ -31,7 +31,7 @@ class AIEngine:
             return 0
 
         if is_maximizing:  # Computer's turn (maximizing)
-            best_value = -float('inf')
+            best_value = -float('inf') 
             for i in range(9):
                 if board[i] == 0:
                     board[i] = 1  # Computer plays O (1)
@@ -40,7 +40,7 @@ class AIEngine:
                     best_value = max(best_value, value)
             return best_value
         else:  # Player's turn (minimizing)
-            best_value = float('inf')
+            best_value = float('inf') 
             for i in range(9):
                 if board[i] == 0:
                     board[i] = -1  # Player plays X (-1)
